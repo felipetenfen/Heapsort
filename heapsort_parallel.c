@@ -4,7 +4,7 @@
 #include <assert.h>
 #include <omp.h>
 
-#define NUM_THREADS 256
+#define NUM_THREADS 64
 #define NUM_REP 100
 
 void heap_sort(int *vet, int N);
@@ -61,7 +61,7 @@ int main()
 				
 				//Coleta o tempo inicial da execução do algoritmo
 				double tempo_final = omp_get_wtime();
-								
+			
 				//Realiza o calculo do tempo total de execução do algoritmo em segundos
 				double tempo_total = tempo_final - tempo_inicial;
 				printf("Heapsorte paralelo executado em %g segundos\n", tempo_total);
@@ -100,7 +100,6 @@ void heap_sort(int *vet, int N)
 		
 		//Primeiro cria-se o vetor heap a partir dos dados, pegando 
 		//o vetor do meio pra frente e tranformando-o em um heap
-		#pragma omp for
 		for ( i = (N -1)/2; i >= 0; i--)
 		{
 			cria_heap(vet, i, N-1);
@@ -110,7 +109,6 @@ void heap_sort(int *vet, int N)
 		//e coloca na ultima posição do vetor em seguida reestrutura toda a heap,
 		//sem considerar a ultima posição do vetor e realiza todo o processo 
 		//novamente até que o vetor esteja ordenado
-		#pragma omp for
 		for ( i = N-1; i >= 1; i--)
 		{
 			aux = vet[0];
