@@ -98,12 +98,18 @@ void heap_sort(int *vet, int N)
 	{
 		int i, aux;
 		
+		//Primeiro cria-se o vetor heap a partir dos dados, pegando 
+		//o vetor do meio pra frente e tranformando-o em um heap
 		#pragma omp for
 		for ( i = (N -1)/2; i >= 0; i--)
 		{
 			cria_heap(vet, i, N-1);
 		}
 		
+		//Pega o maior maior elemento da heap, que se encontra no topo da arvore, 
+		//e coloca na ultima posição do vetor em seguida reestrutura toda a heap,
+		//sem considerar a ultima posição do vetor e realiza todo o processo 
+		//novamente até que o vetor esteja ordenado
 		#pragma omp for
 		for ( i = N-1; i >= 1; i--)
 		{
